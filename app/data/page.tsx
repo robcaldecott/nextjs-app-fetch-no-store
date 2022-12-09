@@ -23,3 +23,5 @@ export default async function DataPage() {
     </>
   );
 }
+
+export const revalidate = 0;
