@@ -2,6 +2,7 @@ import Link from "next/link";
 
 interface WorldTimeAPI {
   unixtime: number;
+  datetime: string;
 }
 
 async function getTime() {
@@ -19,6 +20,7 @@ export default async function DataPage() {
   return (
     <>
       <h1>Unix time: {time.unixtime}</h1>
+      <h2>{time.datetime}</h2>
       <Link href="/">Home</Link>
     </>
   );
