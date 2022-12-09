@@ -1,30 +1,25 @@
-interface User {
-  id: string;
-  name: string;
+import Link from "next/link";
+
+interface WorldTimeAPI {
+  unixtime: number;
 }
 
-async function getUsers() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users", {
-    cache: "no-store",
-  });
-  const users: Array<User> = await response.json();
-
-  return users;
+async function getTime() {
+  const response = await fetch(
+    "http://worldtimeapi.org/api/timezone/Europe/London",
+    { cache: "no-store" }
+  );
+  const time: WorldTimeAPI = await response.json();
+  return time;
 }
 
 export default async function DataPage() {
-  console.log("fetching data...", new Date().getTime());
-
-  const users = await getUsers();
+  const time = await getTime();
 
   return (
     <>
-      <div>Time: {new Date().getTime()}</div>
-      <ul>
-        {users.map((user) => {
-          return <li key={user.id}>{user.name}</li>;
-        })}
-      </ul>
+      <h1>Unix time: {time.unixtime}</h1>
+      <Link href="/">Home</Link>
     </>
   );
 }
